@@ -145,6 +145,35 @@ const activityColorMap: Record<string, string> = {
   project_created: "success",
 };
 
+async function TopCustomers() {
+  const customers = await db.customer.findMany({
+    take: 5,
+    orderBy: { totalSpent: "desc" },
+  });
+
+  if (customers.length === 0) {
+    return <div className="py-8 text-center text-slate-500 text-sm">لا توجد بيانات</div>;
+  }
+
+  return (
+    <ul className="space-y-3">
+      {customers.map((c, i) => (
+        <li key={c.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/2 transition-colors">
+          <span className="text-xs text-slate-500 font-mono w-4">{String(i + 1).padStart(2, "0")}</span>
+          <Avatar name={c.name} size="sm" />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-white truncate">{c.name}</p>
+            <p className="text-[11px] text-slate-500">{c.projectsCount} مشروع</p>
+          </div>
+          <p className="text-sm font-extrabold text-gradient-gold">
+            {(c.totalSpent / 1000).toFixed(0)}K
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function DashboardPage() {
   const data = await getDashboardData();
 
@@ -427,34 +456,5 @@ export default async function DashboardPage() {
         )}
       </div>
     </div>
-  );
-}
-
-async function TopCustomers() {
-  const customers = await db.customer.findMany({
-    take: 5,
-    orderBy: { totalSpent: "desc" },
-  });
-
-  if (customers.length === 0) {
-    return <div className="py-8 text-center text-slate-500 text-sm">لا توجد بيانات</div>;
-  }
-
-  return (
-    <ul className="space-y-3">
-      {customers.map((c, i) => (
-        <li key={c.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/2 transition-colors">
-          <span className="text-xs text-slate-500 font-mono w-4">{String(i + 1).padStart(2, "0")}</span>
-          <Avatar name={c.name} size="sm" />
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-white truncate">{c.name}</p>
-            <p className="text-[11px] text-slate-500">{c.projectsCount} مشروع</p>
-          </div>
-          <p className="text-sm font-extrabold text-gradient-gold">
-            {(c.totalSpent / 1000).toFixed(0)}K
-          </p>
-        </li>
-      ))}
-    </ul>
   );
 }
