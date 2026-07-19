@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd goldmil-admin && npm install && npm run build",
+  "outputDirectory": "goldmil-admin/.next",
+  "installCommand": "cd goldmil-admin && npm install",
+  "devCommand": "cd goldmil-admin && npm run dev",
+  "regions": ["iad1"],
+  "projectSettings": {
+    "nodeVersion": "20.x"
+  }
+}

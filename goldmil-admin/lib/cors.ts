@@ -1,31 +1,39 @@
-// CORS helper — للسماح للموقع الرئيسي (goldmil.matrxe.com) بإرسال طلبات للوحة الإدارة
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_ORIGINS = [
+  "http://localhost:3000",
+  "http://localhost:8080",
+  "https://golden-mile.github.io",
   "https://goldmil.matrxe.com",
-  "https://www.goldmil.matrxe.com",
-  "https://admin.goldmil.matrxe.com",
-  "http://localhost:3000", // development
-  "http://localhost:3001",
+  "https://golden-mile-website.vercel.app",
+  "https://goldmil-admin-malek2006ar-maker.vercel.app",
 ];
 
-export function corsHeaders(origin?: string | null) {
-  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-  return {
-    "Access-Control-Allow-Origin": allowed,
-    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Max-Age": "86400",
-  };
+export function applyCORSHeaders(response: NextResponse) {
+  response.headers.set("Access-Control-Allow-Credentials", "true");
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+  );
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+
+  return response;
 }
 
-export function handleCors(request: Request) {
-  if (request.method === "OPTIONS") {
+export function handleCORS(origin?: string) {
+  if (!origin || ALLOWED_ORIGINS.includes(origin)) {
     return new NextResponse(null, {
       status: 200,
-      headers: corsHeaders(request.headers.get("origin")),
+      headers: {
+        "Access-Control-Allow-Origin": origin || "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
     });
   }
-  return null;
+
+  return new NextResponse(null, { status: 403 });
 }
