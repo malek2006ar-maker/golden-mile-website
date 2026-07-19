@@ -369,463 +369,140 @@
         .portfolio-overlay h3 { font-size: 1.5rem; margin-bottom: 10px; }
         .portfolio-overlay p { color: var(--gold-pale); }
 
-        /* Admin Panel */
-        .admin-panel {
-            background: var(--dark-gray);
-            display: none;
-        }
-        .admin-panel.active { display: block; }
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        @media (max-width: 968px) { .admin-grid { grid-template-columns: 1fr; } }
-
-        .admin-sidebar {
-            background: var(--medium-gray);
-            border-radius: 20px;
-            padding: 30px;
-            height: fit-content;
-        }
-        .admin-menu { list-style: none; }
-        .admin-menu li { margin-bottom: 10px; }
-        .admin-menu a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-        .admin-menu a:hover, .admin-menu a.active {
-            background: var(--gradient-gold);
-            color: var(--black);
-        }
-        .admin-content {
-            background: var(--medium-gray);
-            border-radius: 20px;
-            padding: 40px;
-        }
-
-        /* Forms */
-        .form-group { margin-bottom: 25px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--gold-primary);
-            font-weight: 600;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
-            color: var(--white);
-            font-family: inherit;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold-primary);
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
-
-        /* Upload Area */
-        .upload-area {
-            border: 3px dashed var(--gold-primary);
-            border-radius: 20px;
-            padding: 60px 40px;
-            text-align: center;
-            background: rgba(212, 175, 55, 0.05);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .upload-area:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: scale(1.02);
-        }
-        .upload-area i {
-            font-size: 48px;
-            color: var(--gold-primary);
-            margin-bottom: 20px;
-        }
-
-        /* Social Manager */
-        .social-manager { background: var(--black); }
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        @media (max-width: 968px) { .social-grid { grid-template-columns: 1fr; } }
-
-        .social-accounts, .social-creator {
-            background: var(--dark-gray);
-            border-radius: 20px;
-            padding: 40px;
-        }
-        .social-account-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: var(--medium-gray);
-            border-radius: 15px;
-            margin-bottom: 15px;
-        }
-        .social-icon {
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-        .social-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .social-icon.twitter { background: #1da1f2; }
-        .social-icon.facebook { background: #4267B2; }
-        .social-icon.linkedin { background: #0077b5; }
-        .social-icon.tiktok { background: #000; border: 1px solid #fff; }
-
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .template-item {
-            aspect-ratio: 1;
-            background: var(--medium-gray);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        .template-item:hover, .template-item.selected {
-            border-color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.1);
-        }
-        .template-item i {
-            font-size: 32px;
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-        }
-
-        .platform-select {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .platform-tag {
-            padding: 8px 20px;
-            background: var(--medium-gray);
-            border: 1px solid var(--gold-primary);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .platform-tag:hover, .platform-tag.active {
-            background: var(--gold-primary);
-            color: var(--black);
-        }
-
-        /* Articles */
-        .articles { background: var(--dark-gray); }
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .article-card {
-            background: var(--medium-gray);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        .article-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
-        }
-        .article-image {
-            height: 200px;
-            background: var(--gradient-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--black);
-        }
-        .article-content { padding: 30px; }
-        .article-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            color: var(--gold-primary);
-            font-size: 0.9rem;
-        }
-        .article-card h3 { font-size: 1.3rem; margin-bottom: 15px; }
-        .article-card p { color: var(--gold-pale); margin-bottom: 20px; }
-        .read-more {
-            color: var(--gold-primary);
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Gallery */
-        .gallery { background: var(--black); }
-        .gallery-masonry {
-            column-count: 4;
-            column-gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        @media (max-width: 1200px) { .gallery-masonry { column-count: 3; } }
-        @media (max-width: 768px) { .gallery-masonry { column-count: 2; } }
-        @media (max-width: 480px) { .gallery-masonry { column-count: 1; } }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            background: var(--medium-gray);
-        }
-        .gallery-item img {
-            width: 100%;
-            display: block;
-            transition: transform 0.5s;
-        }
-        .gallery-item:hover img { transform: scale(1.1); }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-        .gallery-item:hover .gallery-caption { transform: translateY(0); }
-
-        /* Contact */
+        /* Contact Section */
         .contact { background: var(--dark-gray); }
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
         @media (max-width: 968px) { .contact-grid { grid-template-columns: 1fr; } }
 
-        .contact-info h3 { font-size: 2rem; margin-bottom: 30px; }
+        .contact-info h3 { font-size: 1.8rem; margin-bottom: 30px; }
         .contact-item {
             display: flex;
-            align-items: center;
             gap: 20px;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: var(--medium-gray);
-            border-radius: 15px;
+            margin-bottom: 30px;
         }
         .contact-icon {
             width: 60px; height: 60px;
             background: var(--gradient-gold);
-            border-radius: 50%;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             color: var(--black);
+            flex-shrink: 0;
         }
-        .contact-form {
-            background: var(--medium-gray);
-            border-radius: 20px;
-            padding: 40px;
+        .contact-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .contact-item p { color: var(--gold-pale); }
+
+        .contact-form h3 { font-size: 1.8rem; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
         }
-        .qr-section {
-            text-align: center;
-            margin-top: 40px;
-            padding: 40px;
-            background: var(--medium-gray);
-            border-radius: 20px;
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 0.95rem;
         }
-        .qr-code {
-            width: 200px; height: 200px;
-            background: white;
-            margin: 20px auto;
-            padding: 10px;
-            border-radius: 15px;
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-gold);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .form-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-group button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Footer */
         footer {
             background: var(--black);
-            padding: 60px 5% 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 40px 5%;
         }
         .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
             max-width: 1400px;
-            margin: 0 auto 40px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
-        @media (max-width: 968px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-
-        .footer-brand h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .footer-brand p { color: var(--gold-pale); margin-bottom: 20px; }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        .social-links a {
-            width: 45px; height: 45px;
-            background: var(--medium-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold-primary);
-            font-size: 20px;
-            transition: all 0.3s;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        .social-links a:hover {
-            background: var(--gold-primary);
-            color: var(--black);
-            transform: translateY(-5px);
-        }
-
-        .footer-links h4 {
-            color: var(--gold-primary);
-            margin-bottom: 20px;
-        }
+        .footer-brand h3 { color: var(--gold-primary); margin-bottom: 10px; }
+        .footer-brand p { color: var(--gold-pale); font-size: 0.9rem; }
+        .footer-links h4 { color: var(--gold-primary); margin-bottom: 15px; }
         .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 10px; }
+        .footer-links li { margin-bottom: 8px; }
         .footer-links a {
             color: var(--gold-pale);
             text-decoration: none;
             transition: color 0.3s;
         }
         .footer-links a:hover { color: var(--gold-primary); }
-
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            margin-top: 40px;
+            padding-top: 20px;
             border-top: 1px solid rgba(212, 175, 55, 0.1);
             color: var(--gold-pale);
-        }
-        .vat-info {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            margin-top: 10px;
+            font-size: 0.9rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: var(--dark-gray);
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 20px; left: 20px;
-            background: var(--gold-primary);
-            border: none;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            color: var(--black);
-            z-index: 10;
-        }
-        .modal-body { padding: 40px; }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            background: var(--gradient-gold);
-            color: var(--black);
-            padding: 20px 30px;
-            border-radius: 15px;
-            font-weight: 700;
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            z-index: 3000;
-        }
-        .toast.show { transform: translateX(0); }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            font-size: 24px;
-            color: var(--gold-primary);
-            cursor: pointer;
-        }
-        @media (max-width: 968px) {
-            .nav-links { display: none; }
-            .mobile-menu { display: block; }
-            .hero-stats { flex-direction: column; gap: 30px; }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { gap: 15px; font-size: 0.9rem; }
+            section { padding: 60px 5%; }
+            .hero-actions { flex-direction: column; }
+            .hero-stats { gap: 30px; }
         }
     </style>
 </head>
@@ -835,63 +512,57 @@
         <div class="loader-circle"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-gem"></i>
-                </div>
+                <div class="logo-icon">⭐</div>
                 <div class="logo-text">
                     <h1>الميل الذهبي</h1>
                     <span>Golden Mile</span>
                 </div>
             </a>
             <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#services">الخدمات</a></li>
                 <li><a href="#portfolio">أعمالنا</a></li>
-                <li><a href="#gallery">معرض الصور</a></li>
-                <li><a href="#articles">المقالات</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <a href="https://admin.goldmil.matrxe.com" target="_blank" class="btn btn-primary">
+                <i class="fas fa-dashboard"></i>
+                لوحة التحكم
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="particles" id="particles"></div>
         <div class="hero-content">
-            <div class="hero-badge">✨ نحول أحلامك إلى واقع</div>
-            <h1>مؤسسة <span class="highlight">الميل الذهبي</span><br>للمقاولات والديكور</h1>
-            <p>نقدم حلولاً متكاملة في مجال المقاولات والديكور الداخلي والخارجي بأعلى معايير الجودة والإتقان</p>
-            
+            <div class="hero-badge">🏆 نحول أحلامك إلى واقع</div>
+            <h1>مؤسسة <span class="highlight">الميل الذهبي</span></h1>
+            <p>تصاميم فاخرة ومقاولات احترافية لمشاريعك</p>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">+15</div>
-                    <div class="stat-label">سنوات خبرة</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">+500</div>
+                    <div class="stat-number">500+</div>
                     <div class="stat-label">مشروع منجز</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">+1000</div>
-                    <div class="stat-label">عميل سعيد</div>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">سنة خبرة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">عميل راضي</div>
                 </div>
             </div>
-
             <div class="hero-actions">
                 <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-phone"></i>
-                    تواصل معنا
+                    <i class="fas fa-paper-plane"></i>
+                    ابدأ الآن
                 </a>
                 <a href="#portfolio" class="btn btn-outline">
                     <i class="fas fa-images"></i>
-                    مشاهدة أعمالنا
+                    عرض أعمالنا
                 </a>
             </div>
         </div>
@@ -900,52 +571,40 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="section-header">
-            <span class="section-tag">خدماتنا المتميزة</span>
-            <h2 class="section-title">حلول متكاملة لكل احتياجاتك</h2>
-            <p class="section-subtitle">نقدم مجموعة واسعة من الخدمات في مجال المقاولات والديكور</p>
+            <span class="section-tag">خدماتنا</span>
+            <h2 class="section-title">حلول شاملة لمشاريعك</h2>
+            <p class="section-subtitle">نقدم أفضل الخدمات في مجال المقاولات والديكور</p>
         </div>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h3>المقاولات العامة</h3>
-                <p>تنفيذ المشاريع الإنشائية بجميع مراحلها من الألف إلى الياء بأعلى معايير الجودة</p>
+                <div class="service-icon">🏗️</div>
+                <h3>مقاولات عامة</h3>
+                <p>تشييد وإنشاءات بأعلى معايير الجودة والأمان</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-paint-roller"></i>
-                </div>
-                <h3>الديكور الداخلي</h3>
-                <p>تصميم وتنفيذ الديكورات الداخلية بأحدث التصاميم العصرية والكلاسيكية</p>
+                <div class="service-icon">🎨</div>
+                <h3>ديكور داخلي</h3>
+                <p>تصاميم فاخرة وحديثة تعكس ذوقك الراقي</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-home"></i>
-                </div>
+                <div class="service-icon">🔧</div>
+                <h3>الصيانة</h3>
+                <p>خدمات صيانة دورية وإصلاحات متخصصة</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏡</div>
                 <h3>التشطيبات</h3>
-                <p>أعمال التشطيب النهائية بجميع أنواعها مع ضمان الجودة والمتانة</p>
+                <p>تشطيبات عالية الجودة حسب مواصفاتك</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <h3>الصيانة العامة</h3>
-                <p>خدمات صيانة شاملة لجميع الأعمال الإنشائية والديكور</p>
+                <div class="service-icon">💡</div>
+                <h3>استشارات</h3>
+                <p>استشارات مجانية وخطط شاملة لمشاريعك</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-drafting-compass"></i>
-                </div>
-                <h3>التصميم الهندسي</h3>
-                <p>تصميم مخططات هندسية دقيقة تناسب احتياجاتك ورغباتك</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-hard-hat"></i>
-                </div>
-                <h3>الإشراف الهندسي</h3>
-                <p>إشراف هندسي كامل على المشاريع لضمان تنفيذها بالشكل المثالي</p>
+                <div class="service-icon">🎯</div>
+                <h3>إدارة المشاريع</h3>
+                <p>متابعة احترافية من البداية إلى النهاية</p>
             </div>
         </div>
     </section>
@@ -954,152 +613,56 @@
     <section class="portfolio" id="portfolio">
         <div class="section-header">
             <span class="section-tag">أعمالنا</span>
-            <h2 class="section-title">نماذج من مشاريعنا المنجزة</h2>
-            <p class="section-subtitle">تصفح مجموعة مختارة من أعمالنا في مجال المقاولات والديكور</p>
+            <h2 class="section-title">محفظة أعمالنا</h2>
+            <p class="section-subtitle">تصفح بعضاً من أفضل مشاريعنا</p>
         </div>
         <div class="portfolio-filters">
             <button class="filter-btn active">الكل</button>
-            <button class="filter-btn">مشاريع سكنية</button>
-            <button class="filter-btn">مشاريع تجارية</button>
-            <button class="filter-btn">ديكور داخلي</button>
+            <button class="filter-btn">مقاولات</button>
+            <button class="filter-btn">ديكور</button>
+            <button class="filter-btn">تشطيبات</button>
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="مشروع 1">
+                <img src="https://images.unsplash.com/photo-1565182999555-c59d4a73b6f9?w=400&h=300&fit=crop" alt="مشروع 1">
                 <div class="portfolio-overlay">
-                    <h3>فيلا سكنية فاخرة</h3>
-                    <p>تصميم وتنفيذ ديكور داخلي كامل</p>
+                    <h3>مشروع سكني فاخر</h3>
+                    <p>عمارة سكنية حديثة بتصميم معماري متميز</p>
                 </div>
             </div>
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="مشروع 2">
+                <img src="https://images.unsplash.com/photo-1574909521917-9dace9e80b68?w=400&h=300&fit=crop" alt="مشروع 2">
                 <div class="portfolio-overlay">
-                    <h3>مجمع تجاري</h3>
-                    <p>أعمال مقاولات وتشطيبات</p>
+                    <h3>ديكور حديث</h3>
+                    <p>تصميم داخلي معاصر بألوان دافئة</p>
                 </div>
             </div>
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800" alt="مشروع 3">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop" alt="مشروع 3">
                 <div class="portfolio-overlay">
-                    <h3>شقة عصرية</h3>
-                    <p>تصميم داخلي عصري</p>
+                    <h3>مشروع تجاري</h3>
+                    <p>متجر حديث بتصميم ميني ماليست</p>
                 </div>
             </div>
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800" alt="مشروع 4">
+                <img src="https://images.unsplash.com/photo-1565182999584-0c54c814b48f?w=400&h=300&fit=crop" alt="مشروع 4">
                 <div class="portfolio-overlay">
-                    <h3>مكتب إداري</h3>
-                    <p>تصميم وتنفيذ ديكور مكاتب</p>
+                    <h3>مشروع سكني</h3>
+                    <p>فيلا سكنية بتصميم كلاسيكي فخم</p>
                 </div>
             </div>
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800" alt="مشروع 5">
+                <img src="https://images.unsplash.com/photo-1570129477492-45a003537e1f?w=400&h=300&fit=crop" alt="مشروع 5">
                 <div class="portfolio-overlay">
-                    <h3>فيلا حديثة</h3>
-                    <p>تشطيبات داخلية وخارجية</p>
+                    <h3>إعادة تأهيل</h3>
+                    <p>تجديد وتحسين منزل قديم</p>
                 </div>
             </div>
             <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800" alt="مشروع 6">
+                <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop" alt="مشروع 6">
                 <div class="portfolio-overlay">
-                    <h3>مطعم فاخر</h3>
-                    <p>تصميم وتنفيذ ديكور مطاعم</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="section-header">
-            <span class="section-tag">معرض الصور</span>
-            <h2 class="section-title">لحظات من أعمالنا</h2>
-            <p class="section-subtitle">صور توثق مراحل تنفيذ مشاريعنا المختلفة</p>
-        </div>
-        <div class="gallery-masonry">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" alt="صورة 1">
-                <div class="gallery-caption">فيلا سكنية - الدمام</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600" alt="صورة 2">
-                <div class="gallery-caption">تصميم داخلي عصري</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600" alt="صورة 3">
-                <div class="gallery-caption">مكتب إداري</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600" alt="صورة 4">
-                <div class="gallery-caption">واجهة خارجية</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600" alt="صورة 5">
-                <div class="gallery-caption">صالة استقبال</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=600" alt="صورة 6">
-                <div class="gallery-caption">مطبخ عصري</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600" alt="صورة 7">
-                <div class="gallery-caption">غرفة نوم رئيسية</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600" alt="صورة 8">
-                <div class="gallery-caption">حمام فاخر</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Articles Section -->
-    <section class="articles" id="articles">
-        <div class="section-header">
-            <span class="section-tag">المقالات</span>
-            <h2 class="section-title">آخر المقالات والنصائح</h2>
-            <p class="section-subtitle">مقالات مفيدة في مجال المقاولات والديكور</p>
-        </div>
-        <div class="articles-grid">
-            <div class="article-card">
-                <div class="article-image">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <div class="article-content">
-                    <div class="article-meta">
-                        <span><i class="fas fa-calendar"></i> 2024-01-15</span>
-                        <span><i class="fas fa-tag"></i> نصائح</span>
-                    </div>
-                    <h3>نصائح مهمة قبل البدء في مشروع التشطيب</h3>
-                    <p>تعرف على أهم النصائح التي يجب مراعاتها قبل البدء في مشروع التشطيب الخاص بك...</p>
-                    <a href="#" class="read-more">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <div class="article-content">
-                    <div class="article-meta">
-                        <span><i class="fas fa-calendar"></i> 2024-01-10</span>
-                        <span><i class="fas fa-tag"></i> ديكور</span>
-                    </div>
-                    <h3>أحدث صيحات الديكور لعام 2024</h3>
-                    <p>استكشف أحدث التصاميم والموضات في عالم الديكور الداخلي لهذا العام...</p>
-                    <a href="#" class="read-more">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <div class="article-content">
-                    <div class="article-meta">
-                        <span><i class="fas fa-calendar"></i> 2024-01-05</span>
-                        <span><i class="fas fa-tag"></i> صيانة</span>
-                    </div>
-                    <h3>كيف تختار مقاول التشطيب المناسب؟</h3>
-                    <p>دليلك الشامل لاختيار المقاول المناسب لمشروعك مع أهم المعايير الواجب مراعاتها...</p>
-                    <a href="#" class="read-more">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+                    <h3>ديكور مكتبي</h3>
+                    <p>تصميم مكتب احترافي وعملي</p>
                 </div>
             </div>
         </div>
@@ -1109,7 +672,7 @@
     <section class="contact" id="contact">
         <div class="section-header">
             <span class="section-tag">تواصل معنا</span>
-            <h2 class="section-title">نحن هنا لمساعدتك</h2>
+            <h2 class="section-title">نحن هنا لخدمتك</h2>
             <p class="section-subtitle">تواصل معنا الآن واحصل على استشارة مجانية لمشروعك</p>
         </div>
         <div class="contact-grid">
@@ -1126,23 +689,20 @@
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                        <h4>العنوان</h4>
-                        <p>الدمام - شارع الأمير نايف بن عبد العزيز</p>
-                        <a href="https://maps.app.goo.gl/BZ9jKyLsFgQq6Vvz7?g_st=iw" target="_blank" style="color: var(--gold-primary); font-size: 0.9rem;">
-                            <i class="fas fa-external-link-alt"></i> عرض على الخريطة
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div>
                         <h4>البريد الإلكتروني</h4>
-                        <p>info@goldenmile.sa</p>
+                        <p><a href="mailto:info@goldenmile.sa" style="color: var(--gold-primary); text-decoration: none;">info@goldenmile.sa</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4>العنوان</h4>
+                        <p>الرياض، المملكة العربية السعودية</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1150,20 +710,8 @@
                         <i class="fas fa-clock"></i>
                     </div>
                     <div>
-                        <h4>ساعات العمل</h4>
-                        <p>السبت - الخميس: 8:00 ص - 6:00 م</p>
-                    </div>
-                </div>
-                
-                <div class="qr-section">
-                    <h4>تابعنا على وسائل التواصل الاجتماعي</h4>
-                    <div class="social-links" style="justify-content: center; margin-top: 20px;">
-                        <a href="https://www.instagram.com/altawell1986?igsh=MXE3aWpiNHNkd25jYQ%3D%3D&utm_source=qr" target="_blank" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@almilaldahby?_r=1&_d=e3c71hf96i8106&sec_uid=MS4wLjABAAAAeZ4SobpUgAHsEDAJdPdaTtgK2EwKejTk3TVEeOjDn0Yc8e55mm60sZBj2OSunLvC&share_author_id=6931038673291904005&sharer_language=ar&source=h5_m&u_code=dh675j493g56ml&ug_btm=b8727 ,b0&sec_user_id=MS4wLjABAAAAeZ4SobpUgAHsEDAJdPdaTtgK2EwKejTk3TVEeOjDn0Yc8e55mm60sZBj2OSunLvC&utm_source=more&social_share_type=5&utm_campaign=client_share&utm_medium=ios&tt_from=more&user_id=6931038673291904005&enable_checksum=1&share_link_id=C6A7DAE3-8938-41A7-93C0-9FB822ECFEF4&share_app_id=1233" target="_blank" title="TikTok">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
+                        <h4>أوقات العمل</h4>
+                        <p>من السبت إلى الخميس: 9:00 صباحاً - 6:00 مساءً</p>
                     </div>
                 </div>
             </div>
@@ -1172,21 +720,25 @@
                 <form id="contactForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>الاسم الكامل</label>
-                            <input type="text" placeholder="أدخل اسمك" required>
+                            <label for="name">الاسم الكامل *</label>
+                            <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
                         </div>
                         <div class="form-group">
-                            <label>رقم الجوال</label>
-                            <input type="tel" placeholder="أدخل رقم جوالك" required>
+                            <label for="phone">رقم الجوال *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="أدخل رقم جوالك" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>البريد الإلكتروني</label>
-                        <input type="email" placeholder="أدخل بريدك الإلكتروني">
+                        <label for="email">البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
                     </div>
                     <div class="form-group">
-                        <label>نوع الخدمة</label>
-                        <select>
+                        <label for="subject">الموضوع</label>
+                        <input type="text" id="subject" name="subject" placeholder="موضوع الاستفسار">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceType">نوع الخدمة</label>
+                        <select id="serviceType" name="subject">
                             <option>اختر نوع الخدمة</option>
                             <option>مقاولات عامة</option>
                             <option>ديكور داخلي</option>
@@ -1196,13 +748,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>تفاصيل المشروع</label>
-                        <textarea rows="5" placeholder="صف مشروعك هنا..."></textarea>
+                        <label for="message">تفاصيل المشروع *</label>
+                        <textarea id="message" name="message" placeholder="صف مشروعك بالتفصيل..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-paper-plane"></i>
-                        إرسال الرسالة
-                    </button>
+                    <div class="form-group">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الرسالة
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1212,111 +766,57 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <h2>الميل الذهبي</h2>
-                <p>نحول أحلامك إلى واقع بتصاميم فاخرة وإتقان عالي في مجال المقاولات والديكور</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/altawell1986?igsh=MXE3aWpiNHNkd25jYQ%3D%3D&utm_source=qr" target="_blank" title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@almilaldahby?_r=1&_d=e3c71hf96i8106&sec_uid=MS4wLjABAAAAeZ4SobpUgAHsEDAJdPdaTtgK2EwKejTk3TVEeOjDn0Yc8e55mm60sZBj2OSunLvC&share_author_id=6931038673291904005&sharer_language=ar&source=h5_m&u_code=dh675j493g56ml&ug_btm=b8727 ,b0&sec_user_id=MS4wLjABAAAAeZ4SobpUgAHsEDAJdPdaTtgK2EwKejTk3TVEeOjDn0Yc8e55mm60sZBj2OSunLvC&utm_source=more&social_share_type=5&utm_campaign=client_share&utm_medium=ios&tt_from=more&user_id=6931038673291904005&enable_checksum=1&share_link_id=C6A7DAE3-8938-41A7-93C0-9FB822ECFEF4&share_app_id=1233" target="_blank" title="TikTok">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                </div>
+                <h3>الميل الذهبي</h3>
+                <p>مؤسسة متخصصة في المقاولات والديكور بخبرة تزيد عن 15 سنة</p>
             </div>
             <div class="footer-links">
-                <h4>روابط سريعة</h4>
+                <h4>الروابط المهمة</h4>
                 <ul>
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#services">خدماتنا</a></li>
+                    <li><a href="#services">الخدمات</a></li>
                     <li><a href="#portfolio">أعمالنا</a></li>
                     <li><a href="#contact">تواصل معنا</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>خدماتنا</h4>
+                <h4>وسائل التواصل</h4>
                 <ul>
-                    <li><a href="#">المقاولات العامة</a></li>
-                    <li><a href="#">الديكور الداخلي</a></li>
-                    <li><a href="#">التشطيبات</a></li>
-                    <li><a href="#">الصيانة العامة</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>تواصل معنا</h4>
-                <ul>
-                    <li><i class="fas fa-phone" style="margin-left: 8px; color: var(--gold-primary);"></i> <a href="tel:+966532561599" dir="ltr">+966 532561599</a></li>
-                    <li><i class="fas fa-map-marker-alt" style="margin-left: 8px; color: var(--gold-primary);"></i> الدمام - شارع الأمير نايف</li>
-                    <li><a href="https://maps.app.goo.gl/BZ9jKyLsFgQq6Vvz7?g_st=iw" target="_blank"><i class="fas fa-external-link-alt" style="margin-left: 8px;"></i> موقعنا على الخريطة</a></li>
+                    <li><a href="https://www.facebook.com" target="_blank">فيسبوك</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">إنستجرام</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank">تويتر</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>جميع الحقوق محفوظة © 2024 مؤسسة الميل الذهبي للمقاولات والديكور</p>
-            <div class="vat-info">الرقم الضريبي: 310xxxxxxxx</div>
+            <p>جميع الحقوق محفوظة © 2026 مؤسسة الميل الذهبي للمقاولات والديكور</p>
         </div>
     </footer>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">تم الإرسال بنجاح!</div>
+    <!-- 🔌 تضمين السكريبت الخاص بالتكامل مع لوحة التحكم -->
+    <script src="js/admin-integration.js"></script>
 
+    <!-- Script للتعامل مع النموذج والصفحة -->
     <script>
-        // Loader
+        // إخفاء الـ loader
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
+            document.getElementById('loader').classList.add('hidden');
         });
 
-        // Create particles
+        // إنشاء جزيئات عشوائية
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
             particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
             particlesContainer.appendChild(particle);
         }
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-            this.reset();
-        });
-
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-            }
-        });
+        // 🔌 ربط نموذج الاتصال بلوحة التحكم
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', handleContactFormSubmit);
+        }
     </script>
 </body>
 </html>
