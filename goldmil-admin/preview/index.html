@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>معاينة لوحة التحكم - الميل الذهبي</title>
+
+  <!-- Cairo + Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      --gold-50: #fdf8e7;
+      --gold-100: #fbf0c8;
+      --gold-200: #f6df91;
+      --gold-300: #f0c75e;
+      --gold-400: #e8b94a;
+      --gold-500: #d4a843;
+      --gold-600: #c8962e;
+      --gold-700: #a07820;
+      --gold-800: #7d5b18;
+      --gold-900: #5a3f10;
+      --ink-950: #07070f;
+      --ink-900: #090913;
+      --ink-800: #0d0d1a;
+      --ink-700: #13131f;
+      --ink-600: #1a1a26;
+      --ink-500: #22222e;
+      --ink-400: #2a2a36;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: "Cairo", system-ui, sans-serif; background: var(--ink-900); color: #e8e8e8; min-height: 100vh; }
+    body { background: linear-gradient(135deg, var(--ink-900) 0%, var(--ink-950) 100%); }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: var(--ink-900); }
+    ::-webkit-scrollbar-thumb { background: var(--ink-700); border-radius: 5px; border: 2px solid var(--ink-900); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-600); }
+
+    /* Layout */
+    .app { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: rgba(13, 13, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+    .sidebar-logo {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .sidebar-logo-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .sidebar-logo-text h1 {
+      font-size: 16px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c8962e 0%, #f0c75e 50%, #d4a843 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar-logo-text span {
+      font-size: 10px;
+      color: #64748b;
+      letter-spacing: 0.1em;
+    }
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 12px;
+    }
+    .sidebar-section { margin-bottom: 24px; }
+    .sidebar-section h3 {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #475569;
+      font-weight: 700;
+      padding: 0 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+    }
+    .sidebar-link:hover { background: rgba(255, 255, 255, 0.05); color: white; }
+    .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(200, 150, 46, 0.2) 0%, rgba(200, 150, 46, 0.05) 100%);
+      color: #f0c75e;
+      border: 1px solid rgba(200, 150, 46, 0.3);
+      box-shadow: 0 0 30px rgba(200, 150, 46, 0.1);
+    }
+    .sidebar-link .badge-num {
+      margin-right: auto;
+      padding: 2px 8px;
+      background: rgba(200, 150, 46, 0.2);
+      color: #f0c75e;
+      border: 1px solid rgba(200, 150, 46, 0.3);
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .sidebar-link.active::before {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 24px;
+      background: linear-gradient(180deg, #c8962e 0%, #f0c75e 100%);
+      border-radius: 3px 0 0 3px;
+    }
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main */
+    .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+    /* Topbar */
+    .topbar {
+      height: 80px;
+      padding: 0 24px;
+      background: rgba(13, 13, 26, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(200, 150, 46, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .topbar-date { min-width: 0; }
+    .topbar-date p:first-child { font-size: 12px; color: #64748b; }
+    .topbar-date p:last-child { font-size: 14px; font-weight: 700; color: #f0c75e; }
+    .topbar-search { flex: 1; max-width: 400px; position: relative; }
+    .topbar-search input {
+      width: 100%;
+      background: rgba(9, 9, 19, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 10px 40px 10px 16px;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+    .topbar-search input:focus { border-color: rgba(200, 150, 46, 0.5); }
+    .topbar-search svg { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #64748b; }
+    .topbar-actions { display: flex; align-items: center; gap: 8px; margin-right: auto; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 12px;
+      font-size: 14px; font-weight: 700;
+      transition: all 0.2s; cursor: pointer;
+      border: none; text-decoration: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #c8962e 0%, #f0c75e 100%);
+      color: #0d0d1a;
+    }
+    .btn-gold:hover { box-shadow: 0 4px 20px -2px rgba(200, 150, 46, 0.4); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: #f0c75e;
+      border: 1px solid rgba(200, 150, 46, 0.4);
+    }
+    .btn-outline:hover { background: rgba(200, 150, 46, 0.1); border-color: #c8962e; }
+    .btn-sm { padding: 8px 12px; font-size: 12px; }
+    .btn-icon {
+      padding: 10px;
+      border-radius: 12px;
+      background: transparent;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      position: relative;
+    }
+    .btn-icon:hover { background: rgba(255, 255, 255, 0.05); color: #f0c75e; }
+    .btn-icon .dot {
+      position: absolute; top: 8px; right: 8px;
+      width: 8px; height: 8px;
+      background: #ef4444; border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--ink-800);
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #0d0d1a;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Content */
+    .content { flex: 1; padding: 32px; }
+
+    /* Page header */
+    .page-header { margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+    .breadcrumbs { font-size: 12px; color: #64748b; margin-bottom: 12px; }
+    .breadcrumbs span.current { color: #f0c75e; font-weight: 700; }
+    .breadcrumbs .sep { margin: 0 6px; }
+    .page-title { font-size: 28px; font-weight: 800; font-family: "Tajawal", sans-serif; }
+    .page-desc { font-size: 14px; color: #94a3b8; margin-top: 6px; max-width: 600px; }
+    .page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* KPI Grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .kpi-card {
+      position: relative; overflow: hidden;
+      background: rgba(13, 13, 26, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+    .kpi-card:hover { border-color: rgba(200, 150, 46, 0.3); box-shadow: 0 0 30px rgba(200, 150, 46, 0.1); }
+    .kpi-card::before {
+      content: ""; position: absolute; top: -40px; left: -40px;
+      width: 128px; height: 128px; border-radius: 50%;
+      filter: blur(40px); opacity: 0.2;
+    }
+    .kpi-card.gold::before { background: linear-gradient(135deg, #c8962e, #f0c75e); }
+    .kpi-card.info::before { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+    .kpi-card.success::before { background: linear-gradient(135deg, #10b981, #34d399); }
+    .kpi-card.warning::before { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+    .kpi-icon-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; position: relative; }
+    .kpi-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid;
+    }
+    .kpi-icon.gold { background: linear-gradient(135deg, rgba(200, 150, 46, 0.2), rgba(200, 150, 46, 0.05)); border-color: rgba(200, 150, 46, 0.3); color: #f0c75e; }
+    .kpi-icon.info { background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.05)); border-color: rgba(59, 130, 246, 0.3); color: #60a5fa; }
+    .kpi-icon.success { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); border-color: rgba(16, 185, 129, 0.3); color: #34d399; }
+    .kpi-icon.warning { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05)); border-color: rgba(245, 158, 11, 0.3); color: #fbbf24; }
+    .kpi-change {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 8px; border-radius: 8px;
+      font-size: 11px; font-weight: 700;
+    }
+    .kpi-change.up { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .kpi-change.down { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+    .kpi-title { font-size: 12px; color: #94a3b8; margin-bottom: 6px; }
+    .kpi-value { font-size: 28px; font-weight: 800; font-family: "Tajawal", sans-serif; }
+    .kpi-sub { font-size: 11px; color: #475569; margin-top: 8px; }
+
+    /* Cards */
+    .card {
+      background: rgba(13, 13, 26, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .card-title { font-size: 16px; font-weight: 700; }
+    .card-sub { font-size: 11px; color: #64748b; margin-top: 4px; }
+
+    /* Grid layouts */
+    .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
+
+    @media (max-width: 1024px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Chart placeholder */
+    .chart { height: 280px; position: relative; }
+    .chart svg { width: 100%; height: 100%; }
+    .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
+    .donut-center .value { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #c8962e 0%, #f0c75e 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .donut-center .label { font-size: 11px; color: #64748b; margin-top: 4px; }
+    .legend { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .legend-item { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .legend-item .name { display: flex; align-items: center; gap: 8px; color: #cbd5e1; }
+    .legend-item .dot { width: 10px; height: 10px; border-radius: 2px; }
+    .legend-item .count { color: white; font-weight: 700; }
+
+    /* List */
+    .list-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; transition: background 0.2s; cursor: pointer; }
+    .list-item:hover { background: rgba(255, 255, 255, 0.02); }
+    .list-item .num { font-size: 11px; color: #475569; font-family: monospace; min-width: 24px; }
+    .list-item .avatar-sm { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #0d0d1a; flex-shrink: 0; }
+    .list-item .info { flex: 1; min-width: 0; }
+    .list-item .info .title { font-size: 13px; font-weight: 700; color: white; }
+    .list-item .info .sub { font-size: 11px; color: #64748b; }
+    .list-item .value { font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #c8962e, #f0c75e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; border: 1px solid; }
+    .badge-success { background: rgba(16, 185, 129, 0.1); color: #10b981; border-color: rgba(16, 185, 129, 0.3); }
+    .badge-warning { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-color: rgba(245, 158, 11, 0.3); }
+    .badge-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
+    .badge-info { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-color: rgba(59, 130, 246, 0.3); }
+    .badge-neutral { background: rgba(255, 255, 255, 0.05); color: #94a3b8; border-color: rgba(255, 255, 255, 0.1); }
+    .badge-gold { background: rgba(200, 150, 46, 0.1); color: #f0c75e; border-color: rgba(200, 150, 46, 0.3); }
+
+    /* Progress bar */
+    .progress { height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: 999px; overflow: hidden; }
+    .progress-bar { height: 100%; background: linear-gradient(270deg, #c8962e, #f0c75e); border-radius: 999px; transition: width 0.5s; }
+
+    /* Project list */
+    .project-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 12px; border-radius: 12px;
+      transition: background 0.2s;
+    }
+    .project-item:hover { background: rgba(255, 255, 255, 0.02); }
+    .project-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(200, 150, 46, 0.2), rgba(240, 199, 94, 0.05));
+      border: 1px solid rgba(200, 150, 46, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: #f0c75e; flex-shrink: 0;
+    }
+    .project-info { flex: 1; min-width: 0; }
+    .project-info .name { font-size: 14px; font-weight: 700; color: white; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .project-info .sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .project-progress { width: 128px; }
+    .project-progress .label { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 4px; }
+    .project-budget { min-width: 110px; text-align: left; }
+    .project-budget .val { font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #c8962e, #f0c75e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .project-budget .mgr { font-size: 10px; color: #475569; }
+
+    /* Activity */
+    .activity-item { display: flex; gap: 12px; padding: 12px 0; }
+    .activity-icon { width: 36px; height: 36px; border-radius: 12px; border: 1px solid; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .activity-icon.success { background: rgba(16, 185, 129, 0.1); color: #10b981; border-color: rgba(16, 185, 129, 0.3); }
+    .activity-icon.warning { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-color: rgba(245, 158, 11, 0.3); }
+    .activity-icon.danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
+    .activity-icon.gold { background: rgba(200, 150, 46, 0.1); color: #f0c75e; border-color: rgba(200, 150, 46, 0.3); }
+    .activity-content { flex: 1; padding-top: 6px; }
+    .activity-content .text { font-size: 13px; color: #e2e8f0; }
+    .activity-content .meta { font-size: 11px; color: #475569; margin-top: 2px; }
+    .activity-content .meta .gold { color: #f0c75e; }
+
+    /* Inquiry row */
+    .inquiry-item { padding: 12px; border-radius: 12px; transition: background 0.2s; cursor: pointer; }
+    .inquiry-item:hover { background: rgba(255, 255, 255, 0.02); }
+    .inquiry-top { display: flex; align-items: flex-start; gap: 12px; }
+    .inquiry-name { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .inquiry-subject { font-size: 12px; color: #94a3b8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .inquiry-meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 10px; color: #475569; }
+    .inquiry-meta .urgent { color: #ef4444; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Banner */
+    .banner {
+      background: linear-gradient(135deg, rgba(200, 150, 46, 0.15) 0%, rgba(200, 150, 46, 0.05) 100%);
+      border: 1px solid rgba(200, 150, 46, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .banner-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #c8962e, #f0c75e);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #0d0d1a;
+      flex-shrink: 0;
+    }
+    .banner-content { flex: 1; }
+    .banner-title { font-size: 14px; font-weight: 700; color: #f0c75e; margin-bottom: 4px; }
+    .banner-text { font-size: 12px; color: #cbd5e1; }
+    .banner-cta { display: flex; gap: 8px; flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { padding: 16px; }
+      .project-progress, .project-budget { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <svg class="sidebar-logo-icon" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#c8962e"/>
+              <stop offset="50%" stop-color="#f0c75e"/>
+              <stop offset="100%" stop-color="#d4a843"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" stroke="url(#logoGrad)" stroke-width="3" fill="none"/>
+          <path d="M 28 72 C 38 65, 52 48, 55 35 C 57 25, 48 20, 42 22 C 35 25, 30 35, 32 45 C 34 52, 45 62, 58 60 C 70 58, 75 42, 74 32 C 73 25, 68 20, 68 20" stroke="url(#logoGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M 68 20 L 76 22 L 72 30 Z" fill="url(#logoGrad)"/>
+        </svg>
+        <div class="sidebar-logo-text">
+          <h1>الميل الذهبي</h1>
+          <span>لوحة التحكم</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <h3>الرئيسية</h3>
+          <a class="sidebar-link active">
+            <i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>
+            <span>نظرة عامة</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="bar-chart-3" style="width:18px;height:18px"></i>
+            <span>التحليلات</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>إدارة الأعمال</h3>
+          <a class="sidebar-link">
+            <i data-lucide="folder-kanban" style="width:18px;height:18px"></i>
+            <span>المشاريع</span>
+            <span class="badge-num">6</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="users" style="width:18px;height:18px"></i>
+            <span>العملاء</span>
+            <span class="badge-num">12</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="message-square" style="width:18px;height:18px"></i>
+            <span>الاستفسارات</span>
+            <span class="badge-num">3</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="palette" style="width:18px;height:18px"></i>
+            <span>استوديو التصميم</span>
+            <span class="badge-num">4</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>المحتوى والمتجر</h3>
+          <a class="sidebar-link">
+            <i data-lucide="shopping-bag" style="width:18px;height:18px"></i>
+            <span>المتجر</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="book-open" style="width:18px;height:18px"></i>
+            <span>المدونة</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="star" style="width:18px;height:18px"></i>
+            <span>آراء العملاء</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>النظام</h3>
+          <a class="sidebar-link">
+            <i data-lucide="user-cog" style="width:18px;height:18px"></i>
+            <span>المستخدمون</span>
+          </a>
+          <a class="sidebar-link">
+            <i data-lucide="settings" style="width:18px;height:18px"></i>
+            <span>الإعدادات</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="sidebar-link" style="color: #ef4444;">
+          <i data-lucide="log-out" style="width:18px;height:18px"></i>
+          <span>تسجيل الخروج</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-date">
+          <p>السبت، 4 يوليو 2026</p>
+          <p>مرحباً بعودتك 👋</p>
+        </div>
+        <div class="topbar-search">
+          <input type="search" placeholder="بحث في المشاريع، العملاء، الاستفسارات..." />
+          <i data-lucide="search" style="width:16px;height:16px"></i>
+        </div>
+        <div class="topbar-actions">
+          <a href="https://goldmil.matrxe.com" target="_blank" class="btn-icon" title="الموقع الرئيسي">
+            <i data-lucide="globe" style="width:18px;height:18px"></i>
+          </a>
+          <button class="btn-icon">
+            <i data-lucide="bell" style="width:18px;height:18px"></i>
+            <span class="dot"></span>
+          </button>
+          <button class="btn-icon">
+            <div class="avatar" style="background: linear-gradient(135deg, #c8962e, #f0c75e)">أع</div>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="content">
+        <!-- Banner — إعلان عن الإصدار -->
+        <div class="banner">
+          <div class="banner-icon">
+            <i data-lucide="sparkles" style="width:24px;height:24px"></i>
+          </div>
+          <div class="banner-content">
+            <p class="banner-title">هذه معاينة ثابتة للوحة التحكم</p>
+            <p class="banner-text">لتجربة النسخة الكاملة التفاعلية مع Charts حية وقاعدة بيانات، شغّل المشروع عبر <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #f0c75e">npm install && npm run dev</code></p>
+          </div>
+          <div class="banner-cta">
+            <a href="https://github.com" class="btn btn-outline btn-sm">
+              <i data-lucide="github" style="width:14px;height:14px"></i>
+              الكود
+            </a>
+          </div>
+        </div>
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <div class="breadcrumbs">
+              <span>لوحة التحكم</span>
+              <span class="sep">/</span>
+              <span class="current">نظرة عامة</span>
+            </div>
+            <h1 class="page-title">نظرة عامة</h1>
+            <p class="page-desc">ملخص أداء المؤسسة خلال آخر 30 يوماً</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline btn-sm">
+              <i data-lucide="calendar" style="width:14px;height:14px"></i>
+              هذا الشهر
+            </button>
+            <button class="btn btn-outline btn-sm">
+              <i data-lucide="download" style="width:14px;height:14px"></i>
+              تصدير
+            </button>
+            <button class="btn btn-gold btn-sm">
+              <i data-lucide="plus" style="width:14px;height:14px"></i>
+              مشروع جديد
+            </button>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-grid">
+          <div class="kpi-card gold">
+            <div class="kpi-icon-row">
+              <div class="kpi-icon gold"><i data-lucide="dollar-sign" style="width:24px;height:24px"></i></div>
+              <div class="kpi-change up"><i data-lucide="trending-up" style="width:12px;height:12px"></i> 24.5%</div>
+            </div>
+            <p class="kpi-title">إجمالي الإيرادات</p>
+            <p class="kpi-value">٤٫٥١٠٫٠٠٠ ر.س</p>
+            <p class="kpi-sub">مقارنة بالشهر الماضي</p>
+          </div>
+
+          <div class="kpi-card info">
+            <div class="kpi-icon-row">
+              <div class="kpi-icon info"><i data-lucide="folder-kanban" style="width:24px;height:24px"></i></div>
+              <div class="kpi-change up"><i data-lucide="trending-up" style="width:12px;height:12px"></i> 12%</div>
+            </div>
+            <p class="kpi-title">المشاريع النشطة</p>
+            <p class="kpi-value">8</p>
+            <p class="kpi-sub">3 مشاريع جديدة هذا الشهر</p>
+          </div>
+
+          <div class="kpi-card success">
+            <div class="kpi-icon-row">
+              <div class="kpi-icon success"><i data-lucide="users" style="width:24px;height:24px"></i></div>
+              <div class="kpi-change up"><i data-lucide="trending-up" style="width:12px;height:12px"></i> 8.2%</div>
+            </div>
+            <p class="kpi-title">إجمالي العملاء</p>
+            <p class="kpi-value">142</p>
+            <p class="kpi-sub">9 عملاء جدد هذا الشهر</p>
+          </div>
+
+          <div class="kpi-card warning">
+            <div class="kpi-icon-row">
+              <div class="kpi-icon warning"><i data-lucide="message-square" style="width:24px;height:24px"></i></div>
+              <div class="kpi-change up"><i data-lucide="trending-up" style="width:12px;height:12px"></i> 18.6%</div>
+            </div>
+            <p class="kpi-title">استفسارات جديدة</p>
+            <p class="kpi-value">96</p>
+            <p class="kpi-sub">بانتظار الرد: 3</p>
+          </div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="grid-2">
+          <!-- Revenue chart -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">الإيرادات الشهرية</h3>
+                <p class="card-sub">آخر 7 أشهر</p>
+              </div>
+              <div class="kpi-change up">
+                <i data-lucide="trending-up" style="width:12px;height:12px"></i>
+                +24.5% نمو
+              </div>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 600 280" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#c8962e" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#c8962e" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid lines -->
+                <g stroke="#1a1a26" stroke-dasharray="3 3">
+                  <line x1="50" y1="40" x2="580" y2="40"/>
+                  <line x1="50" y1="100" x2="580" y2="100"/>
+                  <line x1="50" y1="160" x2="580" y2="160"/>
+                  <line x1="50" y1="220" x2="580" y2="220"/>
+                </g>
+                <!-- Y-axis labels (right side for RTL) -->
+                <g fill="#64748b" font-size="10" font-family="Cairo">
+                  <text x="40" y="44" text-anchor="end">1000K</text>
+                  <text x="40" y="104" text-anchor="end">750K</text>
+                  <text x="40" y="164" text-anchor="end">500K</text>
+                  <text x="40" y="224" text-anchor="end">250K</text>
+                </g>
+                <!-- Area + Line -->
+                <path d="M 80,180 L 165,200 L 250,140 L 335,90 L 420,60 L 505,40 L 580,50 L 580,240 L 80,240 Z" fill="url(#areaGrad)"/>
+                <path d="M 80,180 L 165,200 L 250,140 L 335,90 L 420,60 L 505,40 L 580,50" fill="none" stroke="#c8962e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Dots -->
+                <g fill="#c8962e" stroke="#0d0d1a" stroke-width="2">
+                  <circle cx="80" cy="180" r="4"/>
+                  <circle cx="165" cy="200" r="4"/>
+                  <circle cx="250" cy="140" r="4"/>
+                  <circle cx="335" cy="90" r="4"/>
+                  <circle cx="420" cy="60" r="4"/>
+                  <circle cx="505" cy="40" r="4"/>
+                  <circle cx="580" cy="50" r="4"/>
+                </g>
+                <!-- X-axis labels (in reverse for RTL) -->
+                <g fill="#64748b" font-size="10" font-family="Cairo">
+                  <text x="80" y="260" text-anchor="middle">يناير</text>
+                  <text x="165" y="260" text-anchor="middle">فبراير</text>
+                  <text x="250" y="260" text-anchor="middle">مارس</text>
+                  <text x="335" y="260" text-anchor="middle">أبريل</text>
+                  <text x="420" y="260" text-anchor="middle">مايو</text>
+                  <text x="505" y="260" text-anchor="middle">يونيو</text>
+                  <text x="580" y="260" text-anchor="middle">يوليو</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Status donut -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">حالة المشاريع</h3>
+                <p class="card-sub">التوزيع حسب الحالة</p>
+              </div>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 200 200">
+                <!-- Donut chart -->
+                <circle cx="100" cy="100" r="60" fill="none" stroke="#10b981" stroke-width="35"
+                  stroke-dasharray="160 376" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="60" fill="none" stroke="#c8962e" stroke-width="35"
+                  stroke-dasharray="55 376" stroke-dashoffset="-160" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="60" fill="none" stroke="#3b82f6" stroke-width="35"
+                  stroke-dasharray="35 376" stroke-dashoffset="-215" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="60" fill="none" stroke="#ef4444" stroke-width="35"
+                  stroke-dasharray="20 376" stroke-dashoffset="-250" transform="rotate(-90 100 100)"/>
+              </svg>
+              <div class="donut-center">
+                <p class="value">40</p>
+                <p class="label">إجمالي المشاريع</p>
+              </div>
+            </div>
+            <div class="legend">
+              <div class="legend-item">
+                <span class="name"><span class="dot" style="background:#10b981"></span>مكتملة</span>
+                <span class="count">24</span>
+              </div>
+              <div class="legend-item">
+                <span class="name"><span class="dot" style="background:#c8962e"></span>قيد التنفيذ</span>
+                <span class="count">8</span>
+              </div>
+              <div class="legend-item">
+                <span class="name"><span class="dot" style="background:#3b82f6"></span>تخطيط</span>
+                <span class="count">5</span>
+              </div>
+              <div class="legend-item">
+                <span class="name"><span class="dot" style="background:#ef4444"></span>متوقفة</span>
+                <span class="count">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="grid-2">
+          <!-- Recent projects -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">أحدث المشاريع</h3>
+                <p class="card-sub">المشاريع المضافة والمحدّثة مؤخراً</p>
+              </div>
+              <a href="#" style="font-size:12px;font-weight:700;color:#f0c75e;display:inline-flex;align-items:center;gap:6px">
+                عرض الكل
+                <i data-lucide="arrow-left" style="width:12px;height:12px"></i>
+              </a>
+            </div>
+            <div>
+              <div class="project-item">
+                <div class="project-icon"><i data-lucide="folder-kanban" style="width:20px;height:20px"></i></div>
+                <div class="project-info">
+                  <p class="name">فيلا الياسمين السكنية <span class="badge badge-info">قيد التنفيذ</span></p>
+                  <p class="sub">عبدالله السبيعي • الرياض - حي الياسمين</p>
+                </div>
+                <div class="project-progress">
+                  <div class="label"><span style="color:#64748b">التقدم</span><span style="color:#f0c75e;font-weight:700">65%</span></div>
+                  <div class="progress"><div class="progress-bar" style="width:65%"></div></div>
+                </div>
+                <div class="project-budget">
+                  <p class="val">850K</p>
+                  <p class="mgr">أحمد العتيبي</p>
+                </div>
+              </div>
+
+              <div class="project-item">
+                <div class="project-icon"><i data-lucide="folder-kanban" style="width:20px;height:20px"></i></div>
+                <div class="project-info">
+                  <p class="name">قصر الديوان <span class="badge badge-info">قيد التنفيذ</span></p>
+                  <p class="sub">الشيخ منصور الرشيد • الرياض - حي الندى</p>
+                </div>
+                <div class="project-progress">
+                  <div class="label"><span style="color:#64748b">التقدم</span><span style="color:#f0c75e;font-weight:700">78%</span></div>
+                  <div class="progress"><div class="progress-bar" style="width:78%"></div></div>
+                </div>
+                <div class="project-budget">
+                  <p class="val">3.2M</p>
+                  <p class="mgr">أحمد العتيبي</p>
+                </div>
+              </div>
+
+              <div class="project-item">
+                <div class="project-icon"><i data-lucide="folder-kanban" style="width:20px;height:20px"></i></div>
+                <div class="project-info">
+                  <p class="name">مجمع النخيل التجاري <span class="badge badge-info">قيد التنفيذ</span></p>
+                  <p class="sub">شركة النخيل القابضة • الرياض</p>
+                </div>
+                <div class="project-progress">
+                  <div class="label"><span style="color:#64748b">التقدم</span><span style="color:#f0c75e;font-weight:700">42%</span></div>
+                  <div class="progress"><div class="progress-bar" style="width:42%"></div></div>
+                </div>
+                <div class="project-budget">
+                  <p class="val">2.4M</p>
+                  <p class="mgr">سارة المطيري</p>
+                </div>
+              </div>
+
+              <div class="project-item">
+                <div class="project-icon"><i data-lucide="folder-kanban" style="width:20px;height:20px"></i></div>
+                <div class="project-info">
+                  <p class="name">شقة الحمراء - ديكور كامل <span class="badge badge-success">مكتمل</span></p>
+                  <p class="sub">منى الزهراني • جدة - حي الحمراء</p>
+                </div>
+                <div class="project-progress">
+                  <div class="label"><span style="color:#64748b">التقدم</span><span style="color:#10b981;font-weight:700">100%</span></div>
+                  <div class="progress"><div class="progress-bar" style="width:100%; background: linear-gradient(270deg, #10b981, #34d399)"></div></div>
+                </div>
+                <div class="project-budget">
+                  <p class="val">180K</p>
+                  <p class="mgr">أحمد العتيبي</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent inquiries -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">أحدث الاستفسارات</h3>
+              <span class="badge badge-info">3 جديد</span>
+            </div>
+            <div>
+              <div class="inquiry-item">
+                <div class="list-item">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #3b82f6, #60a5fa)">مح</div>
+                  <div class="info">
+                    <p class="inquiry-name">محمد الحربي</p>
+                    <p class="inquiry-subject">استفسار عن تشطيب فيلا</p>
+                    <div class="inquiry-meta">
+                      <span>منذ 5 دقائق</span>
+                      <span class="urgent">
+                        <i data-lucide="alert-circle" style="width:10px;height:10px"></i>
+                        عاجل
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inquiry-item">
+                <div class="list-item">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #a855f7, #c084fc)">ريع</div>
+                  <div class="info">
+                    <p class="inquiry-name">ريم العسيري</p>
+                    <p class="inquiry-subject">تصميم داخلي لشقة</p>
+                    <div class="inquiry-meta">
+                      <span>منذ 20 دقيقة</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inquiry-item">
+                <div class="list-item">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #ef4444, #f87171)">سل</div>
+                  <div class="info">
+                    <p class="inquiry-name">سلطان القاسم</p>
+                    <p class="inquiry-subject">مقاولة مبنى تجاري</p>
+                    <div class="inquiry-meta">
+                      <span>منذ ساعتين</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inquiry-item">
+                <div class="list-item">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #10b981, #34d399)">نو</div>
+                  <div class="info">
+                    <p class="inquiry-name">نوال الخالدي</p>
+                    <p class="inquiry-subject">استشارة مجانية</p>
+                    <div class="inquiry-meta">
+                      <span>منذ 4 أيام</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inquiry-item">
+                <div class="list-item">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #c8962e, #f0c75e)">فه</div>
+                  <div class="info">
+                    <p class="inquiry-name">فهد المطيري</p>
+                    <p class="inquiry-subject">طلب عرض سعر</p>
+                    <div class="inquiry-meta">
+                      <span>منذ 11 ساعة</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-top:16px">
+              عرض كل الاستفسارات
+            </a>
+          </div>
+        </div>
+
+        <!-- Activity Timeline -->
+        <div class="card" style="margin-top: 24px;">
+          <div class="card-header">
+            <h3 class="card-title">النشاط الأخير</h3>
+            <button class="btn-icon" style="font-size: 12px; padding: 8px 12px;">
+              عرض السجل الكامل
+            </button>
+          </div>
+          <div>
+            <div class="activity-item">
+              <div class="activity-icon success"><i data-lucide="check-circle-2" style="width:16px;height:16px"></i></div>
+              <div class="activity-content">
+                <p class="text">تم اعتماد التصميم النهائي لـ "قصر الديوان"</p>
+                <p class="meta">سارة المطيري • <span class="gold">منذ 5 دقائق</span></p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon warning"><i data-lucide="clock" style="width:16px;height:16px"></i></div>
+              <div class="activity-content">
+                <p class="text">تحديث حالة مشروع "مجمع النخيل التجاري" إلى 42%</p>
+                <p class="meta">النظام • <span class="gold">منذ 30 دقيقة</span></p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon gold"><i data-lucide="dollar-sign" style="width:16px;height:16px"></i></div>
+              <div class="activity-content">
+                <p class="text">تم استلام دفعة بقيمة 250,000 ر.س من "عبدالله السبيعي"</p>
+                <p class="meta">النظام • <span class="gold">منذ ساعة</span></p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon danger"><i data-lucide="alert-circle" style="width:16px;height:16px"></i></div>
+              <div class="activity-content">
+                <p class="text">تنبيه: نفد المخزون من "مكتب مدير تنفيذي"</p>
+                <p class="meta">النظام • <span class="gold">منذ 3 ساعات</span></p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon success"><i data-lucide="check-circle-2" style="width:16px;height:16px"></i></div>
+              <div class="activity-content">
+                <p class="text">تم نشر مقال "10 أفكار لديكور صالات المعيشة"</p>
+                <p class="meta">خالد القحطاني • <span class="gold">أمس</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modules preview -->
+        <div style="margin-top: 32px;">
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; font-family: Tajawal;">وحدات لوحة التحكم</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="folder-kanban" style="color: #f0c75e; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">المشاريع</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">إدارة كاملة لمشاريع المؤسسة</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="users" style="color: #3b82f6; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">العملاء</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">قاعدة بيانات CRM متكاملة</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="message-square" style="color: #f59e0b; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">الاستفسارات</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">استفسارات الموقع والتواصل</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="palette" style="color: #a855f7; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">استوديو التصميم</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">طلبات التصاميم ثلاثية الأبعاد</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="shopping-bag" style="color: #10b981; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">المتجر</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">إدارة المنتجات والمخزون</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="book-open" style="color: #f0c75e; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">المدونة</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">إدارة المقالات والنشر</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="star" style="color: #fbbf24; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">آراء العملاء</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">التقييمات والشهادات</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="user-cog" style="color: #94a3b8; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">المستخدمون</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">الصلاحيات والأدوار</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="settings" style="color: #64748b; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">الإعدادات</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">الملف الشخصي والأمان</p>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <i data-lucide="bar-chart-3" style="color: #c8962e; width: 24px; height: 24px;"></i>
+              <h4 style="margin-top: 8px; font-size: 14px; font-weight: 700;">التحليلات</h4>
+              <p style="font-size: 11px; color: #64748b; margin-top: 4px;">تحليلات الأداء التفصيلية</p>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

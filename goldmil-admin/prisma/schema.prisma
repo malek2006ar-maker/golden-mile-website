@@ -1,0 +1,203 @@
+// GoldMil Admin — Prisma Schema
+// 10 جداول متكاملة لقاعدة البيانات
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ========== المستخدمون ==========
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  phone     String?
+  role      String   @default("editor") // admin | manager | editor | viewer
+  avatar    String?
+  isActive  Boolean  @default(true)
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inquiries      Inquiry[]      @relation("AssignedInquiries")
+  designRequests DesignRequest[] @relation("AssignedDesigns")
+  activities     Activity[]
+
+  @@map("users")
+}
+
+// ========== المشاريع ==========
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  clientName  String
+  clientPhone String?
+  type        String   // residential | commercial | industrial
+  status      String   @default("planning") // planning | in_progress | on_hold | completed
+  progress    Int      @default(0)
+  budget      Float
+  spent       Float    @default(0)
+  startDate   DateTime
+  endDate     DateTime
+  manager     String
+  location    String
+  description String?
+  thumbnail   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@map("projects")
+}
+
+// ========== العملاء ==========
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  phone       String
+  city        String
+  status      String   @default("lead") // lead | prospect | active | past
+  totalSpent  Float    @default(0)
+  projectsCount Int    @default(0)
+  lastContact DateTime @default(now())
+  source      String   @default("website") // website | referral | social | ads
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@map("customers")
+}
+
+// ========== الاستفسارات ==========
+model Inquiry {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  subject     String
+  message     String
+  status      String   @default("new") // new | in_progress | responded | closed
+  priority    String   @default("medium") // low | medium | high
+  source      String   @default("contact_form") // contact_form | design_studio | store | phone | email
+  assignedToId String?
+  assignedTo  User?    @relation("AssignedInquiries", fields: [assignedToId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("inquiries")
+}
+
+// ========== طلبات التصميم ==========
+model DesignRequest {
+  id          String   @id @default(cuid())
+  customerName String
+  customerEmail String
+  customerPhone String
+  projectName String
+  roomType    String   // living | bedroom | kitchen | bathroom | office | outdoor
+  style       String   // modern | classic | minimal | luxury
+  status      String   @default("pending") // pending | in_design | review | approved | delivered
+  budget      Float
+  deadline    DateTime
+  images      String   @default("[]") // JSON array of URLs
+  notes       String?
+  assignedToId String?
+  assignedTo  User?    @relation("AssignedDesigns", fields: [assignedToId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@map("design_requests")
+}
+
+// ========== المنتجات ==========
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  sku         String   @unique
+  category    String
+  price       Float
+  stock       Int      @default(0)
+  sold        Int      @default(0)
+  status      String   @default("active") // active | out_of_stock | draft
+  description String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([status])
+  @@map("products")
+}
+
+// ========== المقالات ==========
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String   @default("")
+  author      String
+  category    String
+  status      String   @default("draft") // draft | published | archived
+  views       Int      @default(0)
+  likes       Int      @default(0)
+  image       String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([publishedAt])
+  @@map("blog_posts")
+}
+
+// ========== آراء العملاء ==========
+model Testimonial {
+  id           String   @id @default(cuid())
+  customerName String
+  customerRole String?
+  rating       Int      @default(5)
+  content      String
+  status       String   @default("pending") // pending | approved | rejected
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@map("testimonials")
+}
+
+// ========== النشاط ==========
+model Activity {
+  id        String   @id @default(cuid())
+  type      String   // project_created | inquiry_received | payment_received | ...
+  title     String
+  description String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  metadata  String?  // JSON
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("activities")
+}
+
+// ========== الإعدادات ==========
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
