@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مثال: نموذج الاتصال - الميل الذهبي</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #07070f 0%, #090913 100%);
+      color: #fff;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(13, 13, 26, 0.8);
+      border: 1px solid #13131f;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(200, 150, 46, 0.1);
+    }
+
+    h1 {
+      color: #c8962e;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #999;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #f0c75e;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      background: #0d0d1a;
+      border: 1px solid #13131f;
+      border-radius: 6px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #c8962e;
+      box-shadow: 0 0 10px rgba(200, 150, 46, 0.2);
+      background: #13131f;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #c8962e 0%, #f0c75e 100%);
+      color: #07070f;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(200, 150, 46, 0.3);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .required {
+      color: #ff6b6b;
+    }
+
+    .info-text {
+      background: rgba(200, 150, 46, 0.1);
+      border-right: 3px solid #c8962e;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔌 نموذج الاتصال المتصل بلوحة التحكم</h1>
+    <p class="subtitle">اتصل بنا وسيصل استفسارك مباشرة إلى الفريق</p>
+
+    <div class="info-text">
+      ℹ️ <strong>ملاحظة:</strong> البيانات التي تدخلها ستُرسل مباشرة إلى لوحة التحكم.
+      يمكنك متابعة الرسالة من قسم "الاستفسارات" في اللوحة الإدارية.
+    </div>
+
+    <form id="contact-form">
+      <!-- الاسم -->
+      <div class="form-group">
+        <label for="name">
+          الاسم <span class="required">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="أدخل اسمك الكامل"
+          required
+        />
+      </div>
+
+      <!-- البريد الإلكتروني -->
+      <div class="form-group">
+        <label for="email">
+          البريد الإلكتروني <span class="required">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@example.com"
+          required
+        />
+      </div>
+
+      <!-- الهاتف -->
+      <div class="form-group">
+        <label for="phone">رقم الهاتف</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+966 50 000 0000"
+        />
+      </div>
+
+      <!-- الموضوع -->
+      <div class="form-group">
+        <label for="subject">الموضوع</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          placeholder="ما موضوع استفسارك؟"
+        />
+      </div>
+
+      <!-- الرسالة -->
+      <div class="form-group">
+        <label for="message">
+          الرسالة <span class="required">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="اكتب رسالتك هنا..."
+          required
+        ></textarea>
+      </div>
+
+      <!-- الأولوية -->
+      <div class="form-group">
+        <label for="priority">الأولوية</label>
+        <select id="priority" name="priority">
+          <option value="low">منخفضة</option>
+          <option value="medium" selected>متوسطة</option>
+          <option value="high">عالية</option>
+        </select>
+      </div>
+
+      <!-- زر الإرسال -->
+      <button type="submit">📤 إرسال الرسالة</button>
+    </form>
+  </div>
+
+  <!-- 🔌 تضمين ملف التكامل -->
+  <script src="../js/admin-integration.js"></script>
+
+  <!-- معالج النموذج -->
+  <script>
+    const form = document.getElementById("contact-form");
+    if (form) {
+      form.addEventListener("submit", handleContactFormSubmit);
+      console.log("✅ نموذج الاتصال متصل بلوحة التحكم");
+    } else {
+      console.error("❌ لم يتم العثور على النموذج");
+    }
+  </script>
+</body>
+</html>
